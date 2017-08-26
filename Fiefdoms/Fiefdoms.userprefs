@@ -1,0 +1,30 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\House.cs">
+    <Files>
+      <File FileName="Assets\Scripts\InitLevel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerResources.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveFileControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PopulationManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ElapsedTime.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\House.cs" Line="74" Column="67" />
+      <File FileName="Assets\Scripts\Mill.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Field.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Road.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LumberYard.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Quarry.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Market.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BuildingDetail.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LiegeRequests.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\InfoPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RemoveBuilding.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\VictoryConditions.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LoseGame.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Discontent.cs" Line="13" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
