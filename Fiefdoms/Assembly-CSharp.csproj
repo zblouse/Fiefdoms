@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AriableLand.cs" />
      <Compile Include="Assets\Scripts\Building.cs" />
      <Compile Include="Assets\Scripts\BuildingDetail.cs" />
      <Compile Include="Assets\Scripts\CameraScroll.cs" />
@@ -76,6 +77,7 @@
      <Compile Include="Assets\Scripts\TradeDepo.cs" />
      <Compile Include="Assets\Scripts\TradePanel.cs" />
      <Compile Include="Assets\Scripts\VictoryConditions.cs" />
+     <Compile Include="Assets\Scripts\Well.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

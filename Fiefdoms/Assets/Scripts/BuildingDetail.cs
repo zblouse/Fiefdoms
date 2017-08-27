@@ -95,8 +95,17 @@ public class BuildingDetail : MonoBehaviour {
 							} else {
 								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<TradeDepo> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<TradeDepo> ().MaxEmployees+"\nNo Road Access";
 							}
+						}else if (hit.transform.parent.transform.tag == "Well") {
+							DetailPanel.SetActive (true);
 
+							BuildingNameText.text="Well";
+							if (hit.transform.parent.transform.GetComponent<Well> ().RoadAccess) {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Well> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Well> ().MaxEmployees;
+							} else {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Well> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Well> ().MaxEmployees+"\nNo Road Access";
+							}
 						}
+
 					}
 				}
 			} else if (Input.GetMouseButtonDown (1)) {

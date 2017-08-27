@@ -12,6 +12,7 @@ public class PlaceBuilding : MonoBehaviour {
 	public GameObject QuarryPrefab;
 	public GameObject MarketPrefab;
 	public GameObject TradeDepoPrefab;
+	public GameObject WellPrefab;
 
 	private GameObject BuildingPrefab;
 
@@ -35,6 +36,8 @@ public class PlaceBuilding : MonoBehaviour {
 	public int MarketCount=0;
 
 	public GameObject TradeDepoButton;
+
+	public bool FieldAriable=false;
 
 
 	// Use this for initialization
@@ -81,17 +84,20 @@ public class PlaceBuilding : MonoBehaviour {
 						ChangeBuilding ();
 					}
 					if (placingBuilding.transform.tag == "Field" && Resources.PlayerGold >= 10) {
-						placingBuilding.transform.parent = null;
-						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
-						SaveFileControl.control.BuildingCount++;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 3;
-						Resources.PlayerGold = Resources.PlayerGold - 10;
-						placingBuilding.GetComponent<Field> ().placed = true;
-						ChangeBuilding ();
+						if (FieldAriable) {
+							placingBuilding.transform.parent = null;
+							placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+							PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+							SaveFileControl.control.BuildingCount++;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 3;
+							Resources.PlayerGold = Resources.PlayerGold - 10;
+							placingBuilding.GetComponent<Field> ().placed = true;
+							ChangeBuilding ();
+							FieldAriable = false;
+						}
 					}
 					if (placingBuilding.transform.tag == "LumberYard" && Resources.PlayerWood >= 100) {
 						placingBuilding.transform.parent = null;
@@ -149,6 +155,19 @@ public class PlaceBuilding : MonoBehaviour {
 						placingBuilding.GetComponent<TradeDepo> ().placed = true;
 						ChangeBuilding ();
 					}
+					if (placingBuilding.transform.tag == "Well"  && Resources.PlayerStone >= 50) {
+						placingBuilding.transform.parent = null;
+						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						SaveFileControl.control.BuildingCount++;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 9;
+						Resources.PlayerStone = Resources.PlayerStone - 50;
+						placingBuilding.GetComponent<Well> ().placed = true;
+						ChangeBuilding ();
+					}
 
 				} else if (Input.GetMouseButtonDown (0)) {
 					Debug.Log ("There is a collision");
@@ -158,6 +177,7 @@ public class PlaceBuilding : MonoBehaviour {
 					placing = false;
 					placingRoad = false;
 					collision = false;
+					FieldAriable = false;
 				}
 			} else {//We are placing a road
 				if (Input.GetMouseButtonDown (0) && !collision) {
@@ -206,6 +226,7 @@ public class PlaceBuilding : MonoBehaviour {
 					placingRoad = false;
 					roadBeginPlaced = false;
 					collision = false;
+					FieldAriable = false;
 				}
 			}
 		}
@@ -219,6 +240,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = HousePrefab;
 		ChangeBuilding ();
 	}
@@ -229,6 +251,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = MillPrefab;
 		ChangeBuilding ();
 	}
@@ -249,6 +272,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = true;
+		FieldAriable = false;
 		BuildingPrefab = RoadPrefab;
 		ChangeBuilding ();
 	}
@@ -259,6 +283,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = LumberYardPrefab;
 		ChangeBuilding ();
 	}
@@ -270,6 +295,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = QuarryPrefab;
 		ChangeBuilding ();
 	}
@@ -280,6 +306,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = MarketPrefab;
 		ChangeBuilding ();
 	}
@@ -290,7 +317,19 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		placing = true;
 		placingRoad = false;
+		FieldAriable = false;
 		BuildingPrefab = TradeDepoPrefab;
+		ChangeBuilding ();
+	}
+	public void SelectWell(){
+		removeBuilding.EndRemoving ();
+		if (placing) {
+			DestroyImmediate (placingBuilding);
+		}
+		placing = true;
+		placingRoad = false;
+		FieldAriable = false;
+		BuildingPrefab = WellPrefab;
 		ChangeBuilding ();
 	}
 
@@ -306,6 +345,7 @@ public class PlaceBuilding : MonoBehaviour {
 		placingRoad = false;
 		roadBeginPlaced = false;
 		collision = false;
+		FieldAriable = false;
 	}
 
 }

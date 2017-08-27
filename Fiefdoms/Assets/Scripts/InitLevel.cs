@@ -13,6 +13,7 @@ public class InitLevel : MonoBehaviour {
 	public GameObject QuarryPrefab;
 	public GameObject MarketPrefab;
 	public GameObject TradeDepoPrefab;
+	public GameObject WellPrefab;
 
 	private GameObject newBuilding;
 	public PlayerResources resources;
@@ -97,6 +98,13 @@ public class InitLevel : MonoBehaviour {
 				newBuilding=Instantiate (TradeDepoPrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), TradeDepoPrefab.transform.rotation, null);
 				newBuilding.GetComponent<TradeDepo> ().placed = true;
 				newBuilding.GetComponent<TradeDepo> ().CurrentEmployees = (int)SaveFileControl.control.buildings [i, 4];
+				PopManager.buildings [i] = newBuilding;
+
+			}
+			if (SaveFileControl.control.buildings [i, 3] == 9f) {//Well
+				newBuilding=Instantiate (WellPrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), WellPrefab.transform.rotation, null);
+				newBuilding.GetComponent<Well> ().placed = true;
+				newBuilding.GetComponent<Well> ().CurrentEmployees = (int)SaveFileControl.control.buildings [i, 4];
 				PopManager.buildings [i] = newBuilding;
 
 			}

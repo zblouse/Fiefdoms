@@ -17,6 +17,7 @@ public class House : MonoBehaviour {
 
 	public bool RoadAccess = false;
 	public bool MarketAccess = false;
+	public bool WellAccess=false;
 
 	public ElapsedTime ElapsedTime;
 	// Use this for initialization

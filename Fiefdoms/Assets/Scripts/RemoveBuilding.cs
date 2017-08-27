@@ -51,7 +51,12 @@ public class RemoveBuilding : MonoBehaviour {
 						SaveFileControl.control.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum, 3] = 0;
 						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum] = null;
 						Destroy (hit.collider.gameObject.transform.parent.gameObject);
-					} else {
+					}else if (hit.collider.gameObject.transform.parent.tag == "Well") {
+						PopMan.EmployedPeople = PopMan.EmployedPeople - hit.collider.gameObject.transform.parent.GetComponent<Well> ().CurrentEmployees;
+						SaveFileControl.control.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum, 3] = 0;
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum].GetComponent<Well> ().DestroyWell ();
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum] = null;
+					}else {
 						Debug.Log (hit.collider.gameObject.transform.parent.tag);
 					}
 				} else {
