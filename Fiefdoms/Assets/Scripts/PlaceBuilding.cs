@@ -11,6 +11,7 @@ public class PlaceBuilding : MonoBehaviour {
 	public GameObject LumberYardPrefab;
 	public GameObject QuarryPrefab;
 	public GameObject MarketPrefab;
+	public GameObject TradeDepoPrefab;
 
 	private GameObject BuildingPrefab;
 
@@ -31,14 +32,23 @@ public class PlaceBuilding : MonoBehaviour {
 	public RemoveBuilding removeBuilding;
 	public PopulationManager PopMan;
 
+	public int MarketCount=0;
+
+	public GameObject TradeDepoButton;
+
 
 	// Use this for initialization
 	void Start () {
-		
+		TradeDepoButton.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (MarketCount >= 2) {
+			TradeDepoButton.SetActive (true);
+		} else {
+			TradeDepoButton.SetActive (false);
+		}
 		if (placing) {
 			if (!placingRoad) {
 				if (Input.GetMouseButtonDown (0) && !collision) {
@@ -112,6 +122,7 @@ public class PlaceBuilding : MonoBehaviour {
 					}
 					if (placingBuilding.transform.tag == "Market" && Resources.PlayerWood >= 75 && Resources.PlayerStone >= 25) {
 						placingBuilding.transform.parent = null;
+						MarketCount++;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
 						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
@@ -122,6 +133,20 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerWood = Resources.PlayerWood - 75;
 						Resources.PlayerStone = Resources.PlayerStone - 25;
 						placingBuilding.GetComponent<Market> ().placed = true;
+						ChangeBuilding ();
+					}
+					if (placingBuilding.transform.tag == "TradeDepo" && Resources.PlayerWood >= 50 && Resources.PlayerStone>= 50 && MarketCount>=2) {
+						placingBuilding.transform.parent = null;
+						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						SaveFileControl.control.BuildingCount++;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 8;
+						Resources.PlayerWood = Resources.PlayerWood - 50;
+						Resources.PlayerStone = Resources.PlayerStone - 50;
+						placingBuilding.GetComponent<TradeDepo> ().placed = true;
 						ChangeBuilding ();
 					}
 
@@ -256,6 +281,16 @@ public class PlaceBuilding : MonoBehaviour {
 		placing = true;
 		placingRoad = false;
 		BuildingPrefab = MarketPrefab;
+		ChangeBuilding ();
+	}
+	public void SelectTradeDepo(){
+		removeBuilding.EndRemoving ();
+		if (placing) {
+			DestroyImmediate (placingBuilding);
+		}
+		placing = true;
+		placingRoad = false;
+		BuildingPrefab = TradeDepoPrefab;
 		ChangeBuilding ();
 	}
 

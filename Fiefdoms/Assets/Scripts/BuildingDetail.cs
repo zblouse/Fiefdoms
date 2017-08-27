@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class BuildingDetail : MonoBehaviour {
 	public PlaceBuilding PlaceBuilding;
+	public TradePanel trade;
+
+
 	public GameObject DetailPanel;
 	public Text BuildingNameText;
 	public Text DetailText;
@@ -81,6 +84,16 @@ public class BuildingDetail : MonoBehaviour {
 								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Market> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Market> ().MaxEmployees;
 							} else {
 								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Market> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Market> ().MaxEmployees+"\nNo Road Access";
+							}
+
+						}else if (hit.transform.parent.transform.tag == "TradeDepo") {
+							DetailPanel.SetActive (true);
+							trade.ShowDialog ();
+							BuildingNameText.text="Trade Depo";
+							if (hit.transform.parent.transform.GetComponent<TradeDepo> ().RoadAccess) {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<TradeDepo> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<TradeDepo> ().MaxEmployees;
+							} else {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<TradeDepo> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<TradeDepo> ().MaxEmployees+"\nNo Road Access";
 							}
 
 						}

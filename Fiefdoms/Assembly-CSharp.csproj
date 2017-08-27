@@ -73,6 +73,8 @@
      <Compile Include="Assets\Scripts\RemoveBuilding.cs" />
      <Compile Include="Assets\Scripts\Road.cs" />
      <Compile Include="Assets\Scripts\SaveFileControl.cs" />
+     <Compile Include="Assets\Scripts\TradeDepo.cs" />
+     <Compile Include="Assets\Scripts\TradePanel.cs" />
      <Compile Include="Assets\Scripts\VictoryConditions.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

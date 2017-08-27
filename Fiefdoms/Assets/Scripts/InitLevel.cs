@@ -12,11 +12,13 @@ public class InitLevel : MonoBehaviour {
 	public GameObject LumberYardPrefab;
 	public GameObject QuarryPrefab;
 	public GameObject MarketPrefab;
+	public GameObject TradeDepoPrefab;
 
 	private GameObject newBuilding;
 	public PlayerResources resources;
 	public PopulationManager PopManager;
 	public LiegeRequests requests;
+	public PlaceBuilding place;
 	void Awake(){
 		resources.PlayerFood = SaveFileControl.control.PlayerFood;
 		resources.PlayerGold = SaveFileControl.control.PlayerGold;
@@ -84,9 +86,17 @@ public class InitLevel : MonoBehaviour {
 
 			}
 			if (SaveFileControl.control.buildings [i, 3] == 7f) {//Market
+				place.MarketCount++;
 				newBuilding=Instantiate (MarketPrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), MarketPrefab.transform.rotation, null);
 				newBuilding.GetComponent<Market> ().placed = true;
 				newBuilding.GetComponent<Market> ().CurrentEmployees = (int)SaveFileControl.control.buildings [i, 4];
+				PopManager.buildings [i] = newBuilding;
+
+			}
+			if (SaveFileControl.control.buildings [i, 3] == 8f) {//TradeDepo
+				newBuilding=Instantiate (TradeDepoPrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), TradeDepoPrefab.transform.rotation, null);
+				newBuilding.GetComponent<TradeDepo> ().placed = true;
+				newBuilding.GetComponent<TradeDepo> ().CurrentEmployees = (int)SaveFileControl.control.buildings [i, 4];
 				PopManager.buildings [i] = newBuilding;
 
 			}

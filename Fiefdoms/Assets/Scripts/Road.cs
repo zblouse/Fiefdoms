@@ -8,6 +8,8 @@ public class Road : MonoBehaviour {
 	private bool destroying=false;
 	private bool finished = false;
 
+
+
 	void OnTriggerStay(Collider col){
 		if (placed) {
 			if (col.transform.parent.tag == "House") {
@@ -20,6 +22,8 @@ public class Road : MonoBehaviour {
 				col.transform.parent.GetComponent<Quarry> ().RoadAccess = true;
 			}else if (col.transform.parent.tag == "Market") {
 				col.transform.parent.GetComponent<Market> ().RoadAccess = true;
+			}else if (col.transform.parent.tag == "TradeDepo") {
+				col.transform.parent.GetComponent<TradeDepo> ().RoadAccess = true;
 			}
 		}
 	}
@@ -35,6 +39,8 @@ public class Road : MonoBehaviour {
 				col.transform.parent.GetComponent<Quarry> ().RoadAccess = false;
 			}else if (col.transform.parent.tag == "Market") {
 				col.transform.parent.GetComponent<Market> ().RoadAccess = false;
+			}else if (col.transform.parent.tag == "TradeDepo") {
+				col.transform.parent.GetComponent<TradeDepo> ().RoadAccess = false;
 			}
 		}
 	}
