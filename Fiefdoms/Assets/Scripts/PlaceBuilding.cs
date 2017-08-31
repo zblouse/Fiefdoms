@@ -215,21 +215,23 @@ public class PlaceBuilding : MonoBehaviour {
 						roadBegin = placingBuilding.transform.position;
 						placingBuilding.transform.parent = null;
 					} else {//ending point of the road
-						placingBuilding.transform.parent = null;
-						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
-						SaveFileControl.control.BuildingCount++;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 4;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 4] = roadLength;
-						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 5] = placingBuilding.transform.rotation.eulerAngles.y;
-						Debug.Log ("YRotation: "+placingBuilding.transform.rotation.eulerAngles.y);
-						roadBeginPlaced = false;
-						Resources.PlayerStone = (int)(Resources.PlayerStone - 5 * roadLength);
-						placingBuilding.GetComponent<Road> ().placed = true;
-						ChangeBuilding ();
+						if(Resources.PlayerStone>=(int)(5 * roadLength)){
+							placingBuilding.transform.parent = null;
+							placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+							PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+							SaveFileControl.control.BuildingCount++;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 4;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 4] = roadLength;
+							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 5] = placingBuilding.transform.rotation.eulerAngles.y;
+							Debug.Log ("YRotation: "+placingBuilding.transform.rotation.eulerAngles.y);
+							roadBeginPlaced = false;
+							Resources.PlayerStone = (int)(Resources.PlayerStone - 5 * roadLength);
+							placingBuilding.GetComponent<Road> ().placed = true;
+							ChangeBuilding ();
+						}
 					}
 				} else if (roadBeginPlaced) {//dynamically size road while moving mouse
 					
