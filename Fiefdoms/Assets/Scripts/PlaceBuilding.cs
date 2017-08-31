@@ -13,6 +13,8 @@ public class PlaceBuilding : MonoBehaviour {
 	public GameObject MarketPrefab;
 	public GameObject TradeDepoPrefab;
 	public GameObject WellPrefab;
+	public GameObject InnPrefab;
+	public GameObject ChurchPrefab;
 
 	private GameObject BuildingPrefab;
 
@@ -26,7 +28,7 @@ public class PlaceBuilding : MonoBehaviour {
 	private Vector3 roadMid;
 	private float roadLength;
 
-	private GameObject placingBuilding;
+	public GameObject placingBuilding;
 	public GameObject MousePosition;
 	public bool collision = false;
 	public PlayerResources Resources;
@@ -64,7 +66,7 @@ public class PlaceBuilding : MonoBehaviour {
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 1;
-
+						SaveFileControl.control.buildings[SaveFileControl.control.BuildingCount - 1, 4] = 1;//House Type
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						placingBuilding.GetComponent<House> ().Placed = true;
 						ChangeBuilding ();
@@ -168,7 +170,34 @@ public class PlaceBuilding : MonoBehaviour {
 						placingBuilding.GetComponent<Well> ().placed = true;
 						ChangeBuilding ();
 					}
-
+					if (placingBuilding.transform.tag == "Inn"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
+						placingBuilding.transform.parent = null;
+						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						SaveFileControl.control.BuildingCount++;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 10;
+						Resources.PlayerStone = Resources.PlayerStone - 50;
+						Resources.PlayerWood = Resources.PlayerWood - 50;
+						placingBuilding.GetComponent<Inn> ().placed = true;
+						ChangeBuilding ();
+					}
+					if (placingBuilding.transform.tag == "Church"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
+						placingBuilding.transform.parent = null;
+						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						SaveFileControl.control.BuildingCount++;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 11;
+						Resources.PlayerStone = Resources.PlayerStone - 50;
+						Resources.PlayerWood = Resources.PlayerWood - 50;
+						placingBuilding.GetComponent<Church> ().placed = true;
+						ChangeBuilding ();
+					}
 				} else if (Input.GetMouseButtonDown (0)) {
 					Debug.Log ("There is a collision");
 				}
@@ -332,6 +361,28 @@ public class PlaceBuilding : MonoBehaviour {
 		BuildingPrefab = WellPrefab;
 		ChangeBuilding ();
 	}
+	public void SelectInn(){
+		removeBuilding.EndRemoving ();
+		if (placing) {
+			DestroyImmediate (placingBuilding);
+		}
+		placing = true;
+		placingRoad = false;
+		FieldAriable = false;
+		BuildingPrefab = InnPrefab;
+		ChangeBuilding ();
+	}
+	public void SelectChurch(){
+		removeBuilding.EndRemoving ();
+		if (placing) {
+			DestroyImmediate (placingBuilding);
+		}
+		placing = true;
+		placingRoad = false;
+		FieldAriable = false;
+		BuildingPrefab = ChurchPrefab;
+		ChangeBuilding ();
+	}
 
 	private void ChangeBuilding(){
 		placingBuilding = Instantiate (BuildingPrefab, MousePosition.transform);
@@ -340,7 +391,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 
 	public void EndPlacement(){
-		Destroy (placingBuilding);
+		DestroyImmediate (placingBuilding);
 		placing = false;
 		placingRoad = false;
 		roadBeginPlaced = false;

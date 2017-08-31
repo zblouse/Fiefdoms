@@ -18,11 +18,23 @@ public class House : MonoBehaviour {
 	public bool RoadAccess = false;
 	public bool MarketAccess = false;
 	public bool WellAccess=false;
+	public bool InnAccess=false;
+	public bool ChurchAccess = false;
+
+	public int HouseLevel;
+	public GameObject Level2Model;
+	public GameObject Level3Model;
+
+	private GameObject newModel;
 
 	public ElapsedTime ElapsedTime;
 	// Use this for initialization
 	void Start () {
+		SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 1;
 		desireability = 1;
+		HouseLevel = 1;
+		Level2Model = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<HouseModels> ().House2;
+		Level3Model = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<HouseModels> ().House3;
 		PopManager=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PopulationManager>();
 		ElapsedTime=GameObject.FindGameObjectWithTag("Game Control").GetComponent<ElapsedTime>();
 		discontent=GameObject.FindGameObjectWithTag("Game Control").GetComponent<Discontent>();
@@ -69,19 +81,44 @@ public class House : MonoBehaviour {
 					PopManager.PlayerPopulation += thisTurnPopChange;
 
 				}
-
-				if (MarketAccess) {
-					if (pResource.PlayerFood - CurrentPeople >= 0) {
-						pResource.PlayerFood = (pResource.PlayerFood - CurrentPeople);
-						if (discontent.DiscontentAmmt > 0) {
-							discontent.DiscontentAmmt -= .25f;
+				if (HouseLevel == 1 && MarketAccess && WellAccess) {
+					Debug.Log ("Upgrading to Level 2");
+					Destroy (gameObject.transform.GetChild (0).gameObject);
+					newModel = Instantiate (Level2Model,gameObject.transform);
+					newModel.transform.localPosition = new Vector3 (0,.75f,0);
+					newModel.GetComponent<PlacingCollision>().PB=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlaceBuilding>();
+					SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 2;//House Level
+					maxPeople=25;
+					HouseLevel = 2;
+				}
+				if (HouseLevel == 2) {
+					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) {
+						Debug.Log ("Upgrading to Level 3");
+						Destroy (gameObject.transform.GetChild (0).gameObject);
+						newModel = Instantiate (Level3Model,gameObject.transform);
+						newModel.transform.localPosition = new Vector3 (0,1f,0);
+						newModel.GetComponent<PlacingCollision>().PB=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlaceBuilding>();
+						SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 3;//House Level
+						maxPeople=30;
+						HouseLevel = 3;
+					}
+					if (MarketAccess) {
+						if (pResource.PlayerFood - CurrentPeople >= 0) {
+							pResource.PlayerFood = (pResource.PlayerFood - CurrentPeople);
+							if (discontent.DiscontentAmmt > 0) {
+								discontent.DiscontentAmmt -= .25f;
+							}
+						} else {
+							discontent.DiscontentAmmt += 2;
+							pResource.PlayerFood = 0;
 						}
 					} else {
 						discontent.DiscontentAmmt += 2;
-						pResource.PlayerFood = 0;
 					}
-				} else {
-					discontent.DiscontentAmmt += 3;
+					if (!WellAccess) {
+						discontent.DiscontentAmmt += 2;
+					}
+
 				}
 			}
 		} else {

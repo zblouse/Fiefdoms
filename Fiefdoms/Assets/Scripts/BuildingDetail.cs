@@ -41,6 +41,37 @@ public class BuildingDetail : MonoBehaviour {
 									DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople + "\nNo Road Access\nNo Market Access";
 								}
 							}
+							if (!hit.transform.parent.transform.GetComponent<House> ().WellAccess && hit.transform.parent.transform.GetComponent<House> ().HouseLevel==1) {
+								DetailText.text = DetailText.text + "\nWill evolve with Well Access";
+							}else if(!hit.transform.parent.transform.GetComponent<House> ().WellAccess){
+								DetailText.text = DetailText.text + "\nNo Well Access";
+							}
+							DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople;
+							if (hit.transform.parent.transform.GetComponent<House> ().HouseLevel == 1) {
+								if (!hit.transform.parent.transform.GetComponent<House> ().MarketAccess) {
+									DetailText.text = DetailText.text + "\nWill evolve with market access";
+								} else {
+									if(!hit.transform.parent.transform.GetComponent<House> ().WellAccess){
+										DetailText.text = DetailText.text + "\nWill evolve with well access";
+									}
+								}
+							}else if(hit.transform.parent.transform.GetComponent<House> ().HouseLevel==2){
+								if (!hit.transform.parent.transform.GetComponent<House> ().MarketAccess) {
+									DetailText.text = DetailText.text + "\nNo Market Access";
+								}
+								if (!hit.transform.parent.transform.GetComponent<House> ().WellAccess) {
+									DetailText.text = DetailText.text + "\nNo Well Access";
+								}
+								if (!hit.transform.parent.transform.GetComponent<House> ().ChurchAccess) {
+									DetailText.text = DetailText.text + "\nWill evolve with church access";
+								} else {
+									if(!hit.transform.parent.transform.GetComponent<House> ().InnAccess){
+										DetailText.text = DetailText.text + "\nWill evolve with inn access";
+									}
+								}
+							}else if(hit.transform.parent.transform.GetComponent<House> ().HouseLevel==3){
+
+							}
 						} else if (hit.transform.parent.transform.tag == "Mill") {
 							DetailPanel.SetActive (true);
 
@@ -103,6 +134,24 @@ public class BuildingDetail : MonoBehaviour {
 								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Well> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Well> ().MaxEmployees;
 							} else {
 								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Well> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Well> ().MaxEmployees+"\nNo Road Access";
+							}
+						}else if (hit.transform.parent.transform.tag == "Inn") {
+							DetailPanel.SetActive (true);
+
+							BuildingNameText.text="Inn";
+							if (hit.transform.parent.transform.GetComponent<Inn> ().RoadAccess) {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Inn> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Inn> ().MaxEmployees;
+							} else {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Inn> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Inn> ().MaxEmployees+"\nNo Road Access";
+							}
+						}else if (hit.transform.parent.transform.tag == "Church") {
+							DetailPanel.SetActive (true);
+
+							BuildingNameText.text="Church";
+							if (hit.transform.parent.transform.GetComponent<Church> ().RoadAccess) {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Church> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Church> ().MaxEmployees;
+							} else {
+								DetailText.text = "Workers: " + hit.transform.parent.transform.GetComponent<Church> ().CurrentEmployees + "/" + hit.transform.parent.transform.GetComponent<Church> ().MaxEmployees+"\nNo Road Access";
 							}
 						}
 

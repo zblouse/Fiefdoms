@@ -24,6 +24,12 @@ public class Road : MonoBehaviour {
 				col.transform.parent.GetComponent<Market> ().RoadAccess = true;
 			}else if (col.transform.parent.tag == "TradeDepo") {
 				col.transform.parent.GetComponent<TradeDepo> ().RoadAccess = true;
+			}else if (col.transform.parent.tag == "Well") {
+				col.transform.parent.GetComponent<Well> ().RoadAccess = true;
+			}else if (col.transform.parent.tag == "Inn") {
+				col.transform.parent.GetComponent<Inn> ().RoadAccess = true;
+			}else if (col.transform.parent.tag == "Church") {
+				col.transform.parent.GetComponent<Church> ().RoadAccess = true;
 			}
 		}
 	}
@@ -41,6 +47,12 @@ public class Road : MonoBehaviour {
 				col.transform.parent.GetComponent<Market> ().RoadAccess = false;
 			}else if (col.transform.parent.tag == "TradeDepo") {
 				col.transform.parent.GetComponent<TradeDepo> ().RoadAccess = false;
+			}else if (col.transform.parent.tag == "Well") {
+				col.transform.parent.GetComponent<Well> ().RoadAccess = false;
+			}else if (col.transform.parent.tag == "Inn") {
+				col.transform.parent.GetComponent<Inn> ().RoadAccess = false;
+			}else if (col.transform.parent.tag == "Church") {
+				col.transform.parent.GetComponent<Church> ().RoadAccess = false;
 			}
 		}
 	}

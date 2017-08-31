@@ -56,6 +56,16 @@ public class RemoveBuilding : MonoBehaviour {
 						SaveFileControl.control.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum, 3] = 0;
 						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum].GetComponent<Well> ().DestroyWell ();
 						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum] = null;
+					}else if (hit.collider.gameObject.transform.parent.tag == "Inn") {
+						PopMan.EmployedPeople = PopMan.EmployedPeople - hit.collider.gameObject.transform.parent.GetComponent<Inn> ().CurrentEmployees;
+						SaveFileControl.control.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum, 3] = 0;
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum].GetComponent<Inn> ().DestroyInn ();
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum] = null;
+					}else if (hit.collider.gameObject.transform.parent.tag == "Church") {
+						PopMan.EmployedPeople = PopMan.EmployedPeople - hit.collider.gameObject.transform.parent.GetComponent<Church> ().CurrentEmployees;
+						SaveFileControl.control.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum, 3] = 0;
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum].GetComponent<Church> ().DestroyChurch ();
+						PopMan.buildings [hit.collider.gameObject.transform.parent.GetComponent<Building> ().BuildingNum] = null;
 					}else {
 						Debug.Log (hit.collider.gameObject.transform.parent.tag);
 					}
