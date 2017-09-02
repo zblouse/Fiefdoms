@@ -26,7 +26,7 @@ public class Quarry : MonoBehaviour {
 		if (RoadAccess) {
 			if (!pause.GamePaused) {
 				if (eTime.NewMonth  && CurrentEmployees > 0) {
-					resources.PlayerStone = resources.PlayerStone + CurrentEmployees;
+					resources.PlayerStone = resources.PlayerStone + (int)(CurrentEmployees*.75);
 				}
 				if (CurrentEmployees < MaxEmployees && placed) {
 					newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);

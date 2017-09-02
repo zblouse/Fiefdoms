@@ -21,6 +21,7 @@ public class SaveFileControl : MonoBehaviour {
 	public int CurrentMonth;
 
 	public float Discontent;
+	public float Prosperity;
 
 	public bool RequestFulfilled;
 	public int RequestedResource;
@@ -54,6 +55,7 @@ public class SaveFileControl : MonoBehaviour {
 				LiegeOpinion = 50;
 				RequestFulfilled = false;
 				Discontent = 0;
+				Prosperity = 0;
 			}
 
 		} else if (control != this) {
@@ -84,6 +86,7 @@ public class SaveFileControl : MonoBehaviour {
 		data.RequestedResource = control.RequestedResource;
 		data.LiegeOpinion = control.LiegeOpinion;
 		data.Discontent = control.Discontent;
+		data.Prosperity = control.Prosperity;
 
 		bf.Serialize (file, data);
 		file.Close();
@@ -110,6 +113,7 @@ public class SaveFileControl : MonoBehaviour {
 			control.RequestFulfilled = data.RequestFulfilled;
 			control.LiegeOpinion = data.LiegeOpinion;
 			control.Discontent = data.Discontent;
+			control.Prosperity = data.Prosperity;
 		}
 	}
 	public void NewSaveFile(){
@@ -130,6 +134,7 @@ public class SaveFileControl : MonoBehaviour {
 		data.RequestFulfilled = false;
 		data.LiegeOpinion = 50;
 		data.Discontent = 0;
+		data.Prosperity = 0;
 
 		control.PlayerFood = 500;
 		control.PlayerGold = 50;
@@ -145,6 +150,7 @@ public class SaveFileControl : MonoBehaviour {
 		control.RequestFulfilled = false;
 		control.LiegeOpinion = 50;
 		control.Discontent = 0;
+		control.Prosperity = 0;
 
 		bf.Serialize (file, data);
 		file.Close();
@@ -168,6 +174,7 @@ class PlayerData{
 	public int CurrentMonth;
 
 	public float Discontent;
+	public float Prosperity;
 
 	public bool RequestFulfilled;
 	public int RequestedResource;

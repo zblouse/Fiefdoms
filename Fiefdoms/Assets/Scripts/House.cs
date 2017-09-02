@@ -12,8 +12,10 @@ public class House : MonoBehaviour {
 	public int thisTurnPopChange;
 	public bool Placed=false;
 
-	public PlayerResources pResource;
-	public Discontent discontent;
+	private PlayerResources pResource;
+	private Discontent discontent;
+	private ElapsedTime ElapsedTime;
+	private Prosperity prosp;
 
 	public bool RoadAccess = false;
 	public bool MarketAccess = false;
@@ -27,7 +29,8 @@ public class House : MonoBehaviour {
 
 	private GameObject newModel;
 
-	public ElapsedTime ElapsedTime;
+
+
 	// Use this for initialization
 	void Start () {
 		SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 1;
@@ -39,6 +42,7 @@ public class House : MonoBehaviour {
 		ElapsedTime=GameObject.FindGameObjectWithTag("Game Control").GetComponent<ElapsedTime>();
 		discontent=GameObject.FindGameObjectWithTag("Game Control").GetComponent<Discontent>();
 		pResource=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlayerResources>();
+		prosp=GameObject.FindGameObjectWithTag("Game Control").GetComponent<Prosperity>();
 	}
 	
 	// Update is called once per frame
@@ -90,6 +94,7 @@ public class House : MonoBehaviour {
 					SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 2;//House Level
 					maxPeople=25;
 					HouseLevel = 2;
+					prosp.ProsperityAmmt += .25f;
 				}
 				if (HouseLevel == 2) {
 					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) {
@@ -101,10 +106,11 @@ public class House : MonoBehaviour {
 						SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 3;//House Level
 						maxPeople=30;
 						HouseLevel = 3;
+						prosp.ProsperityAmmt += .25f;
 					}
 					if (MarketAccess) {
-						if (pResource.PlayerFood - CurrentPeople >= 0) {
-							pResource.PlayerFood = (pResource.PlayerFood - CurrentPeople);
+						if (pResource.PlayerFood - (2*CurrentPeople) >= 0) {
+							pResource.PlayerFood = (pResource.PlayerFood - (2*CurrentPeople));
 							if (discontent.DiscontentAmmt > 0) {
 								discontent.DiscontentAmmt -= .25f;
 							}
@@ -116,6 +122,40 @@ public class House : MonoBehaviour {
 						discontent.DiscontentAmmt += 2;
 					}
 					if (!WellAccess) {
+						discontent.DiscontentAmmt += 2;
+					}
+
+				}if (HouseLevel == 3) {
+					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) { //update needed
+						Debug.Log ("Upgrading to Level 3");
+						Destroy (gameObject.transform.GetChild (0).gameObject);
+						newModel = Instantiate (Level3Model,gameObject.transform);
+						newModel.transform.localPosition = new Vector3 (0,1f,0);
+						newModel.GetComponent<PlacingCollision>().PB=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlaceBuilding>();
+						SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 3;//House Level
+						maxPeople=30;
+						HouseLevel = 3;
+					}
+					if (MarketAccess) {
+						if (pResource.PlayerFood - (2*CurrentPeople) >= 0) {
+							pResource.PlayerFood = (pResource.PlayerFood - (2*CurrentPeople));
+							if (discontent.DiscontentAmmt > 0) {
+								discontent.DiscontentAmmt -= .25f;
+							}
+						} else {
+							discontent.DiscontentAmmt += 2;
+							pResource.PlayerFood = 0;
+						}
+					} else {
+						discontent.DiscontentAmmt += 2;
+					}
+					if (!WellAccess) {
+						discontent.DiscontentAmmt += 2;
+					}
+					if (!ChurchAccess) {
+						discontent.DiscontentAmmt += 2;
+					}
+					if (!InnAccess) {
 						discontent.DiscontentAmmt += 2;
 					}
 

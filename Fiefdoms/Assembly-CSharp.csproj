@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\PlacingCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerResources.cs" />
      <Compile Include="Assets\Scripts\PopulationManager.cs" />
+     <Compile Include="Assets\Scripts\Prosperity.cs" />
      <Compile Include="Assets\Scripts\Quarry.cs" />
      <Compile Include="Assets\Scripts\RemoveBuilding.cs" />
      <Compile Include="Assets\Scripts\Road.cs" />

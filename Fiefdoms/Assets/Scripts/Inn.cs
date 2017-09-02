@@ -43,7 +43,7 @@ public class Inn : MonoBehaviour {
 					SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 				}
 				if (placed && eTime.NewMonth) {
-					resources.PlayerGold += (int)((float)PopManager.PlayerPopulation*((float)CurrentEmployees/10f)/10f);
+					resources.PlayerGold += (int)((float)PopManager.PlayerPopulation*((float)CurrentEmployees/10f)/50f);
 				}
 			}
 		} else {

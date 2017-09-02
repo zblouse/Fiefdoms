@@ -24,7 +24,7 @@ public class Field : MonoBehaviour {
 	void Update () {
 		if (!pause.GamePaused) {
 			if (eTime.NewMonth && (eTime.currentMonth>=4 && eTime.currentMonth<=11)) {
-				resources.PlayerFood += CurrentEmployees * 3;
+				resources.PlayerFood += CurrentEmployees * 2;
 
 
 			}

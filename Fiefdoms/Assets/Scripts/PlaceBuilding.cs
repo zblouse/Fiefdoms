@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlaceBuilding : MonoBehaviour {
 
@@ -41,10 +42,15 @@ public class PlaceBuilding : MonoBehaviour {
 
 	public bool FieldAriable=false;
 
+	private float maxPlacement;
+
 
 	// Use this for initialization
 	void Start () {
 		TradeDepoButton.SetActive (false);
+		if(SceneManager.GetActiveScene().name=="test"){
+			maxPlacement = 14.5f;
+		}
 	}
 	
 	// Update is called once per frame
@@ -56,7 +62,7 @@ public class PlaceBuilding : MonoBehaviour {
 		}
 		if (placing) {
 			if (!placingRoad) {
-				if (Input.GetMouseButtonDown (0) && !collision) {
+				if (Input.GetMouseButtonDown (0) && !collision && (placingBuilding.transform.position.x>-maxPlacement && placingBuilding.transform.position.x<maxPlacement && placingBuilding.transform.position.z>-maxPlacement && placingBuilding.transform.position.z<maxPlacement)) {
 					if (placingBuilding.transform.tag == "House" && Resources.PlayerWood >= 50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;

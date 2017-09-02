@@ -14,7 +14,7 @@ public class VictoryConditions : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (SceneManager.GetActiveScene ().name == "test") {
-			PopulationReq = 200;
+			PopulationReq = 500;
 			DiscontentReq = 20;
 		}
 		VictoryScreen.SetActive (false);

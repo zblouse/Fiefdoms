@@ -24,6 +24,7 @@ public class InitLevel : MonoBehaviour {
 	public PopulationManager PopManager;
 	public LiegeRequests requests;
 	public PlaceBuilding place;
+	public Prosperity prosp;
 	void Awake(){
 		resources.PlayerFood = SaveFileControl.control.PlayerFood;
 		resources.PlayerGold = SaveFileControl.control.PlayerGold;
@@ -34,6 +35,8 @@ public class InitLevel : MonoBehaviour {
 		requests.requestFulfilled = SaveFileControl.control.RequestFulfilled;
 		requests.requestedResource = SaveFileControl.control.RequestedResource;
 		requests.LiegeOpinion = SaveFileControl.control.LiegeOpinion;
+
+		prosp.ProsperityAmmt = SaveFileControl.control.Prosperity;
 
 		PopManager.EmployedPeople = SaveFileControl.control.TotalEmployees;
 

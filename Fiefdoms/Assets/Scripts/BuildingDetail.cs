@@ -24,28 +24,11 @@ public class BuildingDetail : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				if (Physics.Raycast (ray, out hit, 100f)) {
-					if (hit.transform.tag == "Untagged") {
+					if (hit.transform.tag == "Untagged" ) {
 						if (hit.transform.parent.transform.tag == "House") {
 							DetailPanel.SetActive (true);
 							BuildingNameText.text = "House";
-							if (hit.transform.parent.transform.GetComponent<House> ().MarketAccess) {
-								if (hit.transform.parent.transform.GetComponent<House> ().RoadAccess) {
-									DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople;
-								} else {
-									DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople + "\nNo Road Access";
-								}
-							} else {
-								if (hit.transform.parent.transform.GetComponent<House> ().RoadAccess) {
-									DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople+"\nNo Market Access";
-								} else {
-									DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople + "\nNo Road Access\nNo Market Access";
-								}
-							}
-							if (!hit.transform.parent.transform.GetComponent<House> ().WellAccess && hit.transform.parent.transform.GetComponent<House> ().HouseLevel==1) {
-								DetailText.text = DetailText.text + "\nWill evolve with Well Access";
-							}else if(!hit.transform.parent.transform.GetComponent<House> ().WellAccess){
-								DetailText.text = DetailText.text + "\nNo Well Access";
-							}
+
 							DetailText.text = "Residents: " + hit.transform.parent.transform.GetComponent<House> ().CurrentPeople + "/" + hit.transform.parent.transform.GetComponent<House> ().maxPeople;
 							if (hit.transform.parent.transform.GetComponent<House> ().HouseLevel == 1) {
 								if (!hit.transform.parent.transform.GetComponent<House> ().MarketAccess) {
@@ -57,10 +40,10 @@ public class BuildingDetail : MonoBehaviour {
 								}
 							}else if(hit.transform.parent.transform.GetComponent<House> ().HouseLevel==2){
 								if (!hit.transform.parent.transform.GetComponent<House> ().MarketAccess) {
-									DetailText.text = DetailText.text + "\nNo Market Access";
+									DetailText.text = DetailText.text + "\nNo Market Access\nDiscontent Rising";
 								}
 								if (!hit.transform.parent.transform.GetComponent<House> ().WellAccess) {
-									DetailText.text = DetailText.text + "\nNo Well Access";
+									DetailText.text = DetailText.text + "\nNo Well Access\nDiscontent Rising";
 								}
 								if (!hit.transform.parent.transform.GetComponent<House> ().ChurchAccess) {
 									DetailText.text = DetailText.text + "\nWill evolve with church access";

@@ -19,27 +19,27 @@ public class BuildingCostPopup : MonoBehaviour, IPointerEnterHandler,IPointerExi
 	{
 		Debug.Log("The cursor entered the selectable UI element. "+thisButtonText.text);
 		if (thisButtonText.text == "House") {
-			BuildingCostText.text = "50 Wood";
+			BuildingCostText.text = "Building Cost\n50 Wood";
 		}else if (thisButtonText.text == "Mill") {
-			BuildingCostText.text = "75 Wood 25 Stone";
+			BuildingCostText.text = "Building Cost\n75 Wood 25 Stone";
 		}else if (thisButtonText.text == "Field") {
-			BuildingCostText.text = "10 Gold";
+			BuildingCostText.text = "Building Cost\n10 Gold";
 		}else if (thisButtonText.text == "Road") {
-			BuildingCostText.text = "5 Stone per Length";
+			BuildingCostText.text = "Building Cost\n5 Stone per Length";
 		}else if (thisButtonText.text == "Lumber\nYard") {
-			BuildingCostText.text = "100 Wood";
+			BuildingCostText.text = "Building Cost\n100 Wood";
 		}else if (thisButtonText.text == "Quarry") {
-			BuildingCostText.text = "25 Wood 75 Stone";
+			BuildingCostText.text = "Building Cost\n25 Wood 75 Stone";
 		}else if (thisButtonText.text == "Inn") {
-			BuildingCostText.text = "50 Wood 50 Stone";
+			BuildingCostText.text = "Building Cost\n50 Wood 50 Stone";
 		}else if (thisButtonText.text == "Church") {
-			BuildingCostText.text = "50 Wood 50 Stone";
+			BuildingCostText.text = "Building Cost\n50 Wood 50 Stone";
 		}else if (thisButtonText.text == "Market") {
-			BuildingCostText.text = "75 Wood 25 Stone";
+			BuildingCostText.text = "Building Cost\n75 Wood 25 Stone";
 		}else if (thisButtonText.text == "Trade\nDepo") {
-			BuildingCostText.text = "50 Wood 50 Stone";
+			BuildingCostText.text = "Building Cost\n50 Wood 50 Stone";
 		}else if (thisButtonText.text == "Well") {
-			BuildingCostText.text = "50 Stone";
+			BuildingCostText.text = "Building Cost\n50 Stone";
 		}
 	}
 	public void OnPointerExit(PointerEventData eventData){
