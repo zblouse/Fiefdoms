@@ -66,13 +66,14 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "House" && Resources.PlayerWood >= 50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
+						Debug.Log ("Placing building building num: "+SaveFileControl.control.BuildingCount);
 						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 1;
-						SaveFileControl.control.buildings[SaveFileControl.control.BuildingCount - 1, 4] = 1;//House Type
+						SaveFileControl.control.buildings[SaveFileControl.control.BuildingCount - 1, 5] = 1;//House Type
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						placingBuilding.GetComponent<House> ().Placed = true;
 						ChangeBuilding ();

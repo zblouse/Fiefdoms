@@ -33,7 +33,7 @@ public class House : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 1;
+		
 		desireability = 1;
 		HouseLevel = 1;
 		Level2Model = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<HouseModels> ().House2;
@@ -47,7 +47,6 @@ public class House : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 		if (RoadAccess) {
 
 			if (Placed && ElapsedTime.NewMonth) {

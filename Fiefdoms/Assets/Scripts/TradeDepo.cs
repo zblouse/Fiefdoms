@@ -24,19 +24,21 @@ public class TradeDepo : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (RoadAccess) {
-			if (!pause.GamePaused) {
-				if (CurrentEmployees < MaxEmployees && placed) {
-					newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
-					PopManager.EmployedPeople += newWorkers;
-					CurrentEmployees += newWorkers;
-					SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+		if (placed) {
+			if (RoadAccess) {
+				if (!pause.GamePaused) {
+					if (CurrentEmployees < MaxEmployees && placed) {
+						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						PopManager.EmployedPeople += newWorkers;
+						CurrentEmployees += newWorkers;
+						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+					}
 				}
+			} else {
+				PopManager.EmployedPeople -= CurrentEmployees;
+				CurrentEmployees = 0;
+				SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 			}
-		} else {
-			PopManager.EmployedPeople -= CurrentEmployees;
-			CurrentEmployees = 0;
-			SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 		}
 	}
 }

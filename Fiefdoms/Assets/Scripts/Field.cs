@@ -18,11 +18,12 @@ public class Field : MonoBehaviour {
 		eTime=GameObject.FindGameObjectWithTag("Game Control").GetComponent<ElapsedTime>();
 		PopManager = GameObject.FindGameObjectWithTag("Game Control").GetComponent<PopulationManager>();
 		pause = GameObject.FindGameObjectWithTag("Game Control").GetComponent<PauseGame>();
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (!pause.GamePaused) {
+		if (!pause.GamePaused && placed) {
 			if (eTime.NewMonth && (eTime.currentMonth>=4 && eTime.currentMonth<=11)) {
 				resources.PlayerFood += CurrentEmployees * 2;
 

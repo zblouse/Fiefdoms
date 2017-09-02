@@ -23,23 +23,25 @@ public class LumberYard : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (RoadAccess) {
-			if (!pause.GamePaused) {
-				if (eTime.NewMonth && resources.PlayerFood >= 25 && CurrentEmployees > 0) {
-					resources.PlayerWood = resources.PlayerWood + (int)(CurrentEmployees*.75);
+		if (placed) {
+			if (RoadAccess) {
+				if (!pause.GamePaused) {
+					if (eTime.NewMonth && resources.PlayerFood >= 25 && CurrentEmployees > 0) {
+						resources.PlayerWood = resources.PlayerWood + (int)(CurrentEmployees * .75);
 
+					}
+					if (CurrentEmployees < MaxEmployees && placed) {
+						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						PopManager.EmployedPeople += newWorkers;
+						CurrentEmployees += newWorkers;
+						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+					}
 				}
-				if (CurrentEmployees < MaxEmployees && placed) {
-					newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
-					PopManager.EmployedPeople += newWorkers;
-					CurrentEmployees += newWorkers;
-					SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
-				}
+			} else {
+				PopManager.EmployedPeople -= CurrentEmployees;
+				CurrentEmployees = 0;
+				SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 			}
-		} else {
-			PopManager.EmployedPeople -= CurrentEmployees;
-			CurrentEmployees = 0;
-			SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 		}
 	}
 }

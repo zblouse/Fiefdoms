@@ -14,6 +14,8 @@ public class Mill : MonoBehaviour {
 	int newWorkers;
 	public bool placed=false;
 	// Use this for initialization
+	void Awake(){
+	}
 	void Start () {
 		resources=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlayerResources>();
 		eTime=GameObject.FindGameObjectWithTag("Game Control").GetComponent<ElapsedTime>();
@@ -23,24 +25,28 @@ public class Mill : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (RoadAccess) {
-			if (!pause.GamePaused) {
-				if (eTime.NewMonth && resources.PlayerFood >= 25 && CurrentEmployees > 0) {
-					resources.PlayerGold = resources.PlayerGold + CurrentEmployees;
-					resources.PlayerFood = resources.PlayerFood - 15;
+		if (placed) {
+			if (RoadAccess) {
+				if (!pause.GamePaused) {
+					if (eTime.NewMonth && resources.PlayerFood >= 25 && CurrentEmployees > 0) {
+						resources.PlayerGold = resources.PlayerGold + CurrentEmployees;
+						resources.PlayerFood = resources.PlayerFood - 15;
 
+					}
+					if (CurrentEmployees < MaxEmployees && placed && eTime.NewMonth) {
+						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						PopManager.EmployedPeople += newWorkers;
+						CurrentEmployees += newWorkers;
+						Debug.Log ("" + gameObject.GetComponent<Building> ().BuildingNum);
+						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+					}
 				}
-				if (CurrentEmployees < MaxEmployees && placed && eTime.NewMonth) {
-					newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
-					PopManager.EmployedPeople += newWorkers;
-					CurrentEmployees += newWorkers;
-					SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
-				}
+			} else {
+				PopManager.EmployedPeople -= CurrentEmployees;
+				CurrentEmployees = 0;
+				Debug.Log ("" + gameObject.GetComponent<Building> ().BuildingNum);
+				SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 			}
-		} else {
-			PopManager.EmployedPeople -= CurrentEmployees;
-			CurrentEmployees = 0;
-			SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 		}
 	}
 }

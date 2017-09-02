@@ -34,19 +34,21 @@ public class Market : MonoBehaviour {
 			gameObject.GetComponent<BoxCollider> ().center = new Vector3 (0, 100, 0);
 			finished = true;
 		}
-		if (RoadAccess) {
-			if (!pause.GamePaused) {
-				if (CurrentEmployees < MaxEmployees && placed) {
-					newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
-					PopManager.EmployedPeople += newWorkers;
-					CurrentEmployees += newWorkers;
-					SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+		if (placed) {
+			if (RoadAccess) {
+				if (!pause.GamePaused) {
+					if (CurrentEmployees < MaxEmployees && placed) {
+						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						PopManager.EmployedPeople += newWorkers;
+						CurrentEmployees += newWorkers;
+						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+					}
 				}
+			} else {
+				PopManager.EmployedPeople -= CurrentEmployees;
+				CurrentEmployees = 0;
+				SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 			}
-		} else {
-			PopManager.EmployedPeople -= CurrentEmployees;
-			CurrentEmployees = 0;
-			SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 		}
 	}
 	void OnTriggerStay(Collider col){
