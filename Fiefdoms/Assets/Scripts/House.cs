@@ -84,16 +84,28 @@ public class House : MonoBehaviour {
 					PopManager.PlayerPopulation += thisTurnPopChange;
 
 				}
-				if (HouseLevel == 1 && MarketAccess && WellAccess) {
-					Debug.Log ("Upgrading to Level 2");
-					Destroy (gameObject.transform.GetChild (0).gameObject);
-					newModel = Instantiate (Level2Model,gameObject.transform);
-					newModel.transform.localPosition = new Vector3 (0,.75f,0);
-					newModel.GetComponent<PlacingCollision>().PB=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlaceBuilding>();
-					SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 2;//House Level
-					maxPeople=25;
-					HouseLevel = 2;
-					prosp.ProsperityAmmt += .25f;
+				if (HouseLevel == 1) {
+					if (pResource.PlayerFood - (int)(CurrentPeople/2) >= 0) {
+						pResource.PlayerFood = (pResource.PlayerFood - (int)(CurrentPeople/2));
+						if (discontent.DiscontentAmmt > 0) {
+							discontent.DiscontentAmmt -= .25f;
+						}
+					} else {
+						discontent.DiscontentAmmt += 2;
+						pResource.PlayerFood = 0;
+					}
+
+					if (MarketAccess && WellAccess) {
+						Debug.Log ("Upgrading to Level 2");
+						Destroy (gameObject.transform.GetChild (0).gameObject);
+						newModel = Instantiate (Level2Model, gameObject.transform);
+						newModel.transform.localPosition = new Vector3 (0, .75f, 0);
+						newModel.GetComponent<PlacingCollision> ().PB = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<PlaceBuilding> ();
+						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 5] = 2;//House Level
+						maxPeople = 25;
+						HouseLevel = 2;
+						prosp.ProsperityAmmt += .25f;
+					}
 				}
 				if (HouseLevel == 2) {
 					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) {

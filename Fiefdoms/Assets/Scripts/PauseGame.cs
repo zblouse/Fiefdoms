@@ -18,4 +18,9 @@ public class PauseGame : MonoBehaviour {
 			PauseText.enabled = false;
 		}
 	}
+	void Update(){
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Pause ();
+		}
+	}
 }
