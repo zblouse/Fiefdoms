@@ -46,13 +46,26 @@ public class InitLevel : MonoBehaviour {
 			//Debug.Log (SaveFileControl.control.buildings [i, 3]);
 			if (SaveFileControl.control.buildings [i, 3] == 1f) {//House
 				Debug.Log("House Level: "+ SaveFileControl.control.buildings [i, 5]);
+				newBuilding = Instantiate (HousePrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), HousePrefab.transform.rotation, null);
 				if (SaveFileControl.control.buildings [i, 5] == 1) {
 					Debug.Log("House1");
-					newBuilding = Instantiate (HousePrefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), HousePrefab.transform.rotation, null);
+
 				}else if(SaveFileControl.control.buildings [i, 5] == 2){
-					newBuilding = Instantiate (House2Prefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), House2Prefab.transform.rotation, null);
+					Destroy (newBuilding.transform.GetChild (0).gameObject);
+					GameObject newModel = Instantiate (House2Prefab, newBuilding.transform);
+					newModel.transform.localPosition = new Vector3 (0, .5f, 0);
+					newModel.GetComponent<PlacingCollision> ().PB = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<PlaceBuilding> ();
+					newBuilding.GetComponent<House>().maxPeople = 25;
+					newBuilding.GetComponent<House>().HouseLevel = 2;
+
 				}else if(SaveFileControl.control.buildings [i, 5] == 3){
-					newBuilding = Instantiate (House3Prefab, new Vector3 (SaveFileControl.control.buildings [i, 0], SaveFileControl.control.buildings [i, 1], SaveFileControl.control.buildings [i, 2]), House3Prefab.transform.rotation, null);
+					Destroy (newBuilding.transform.GetChild (0).gameObject);
+					GameObject newModel = Instantiate (House3Prefab, newBuilding.transform);
+					newModel.transform.localPosition = new Vector3 (0, .5f, 0);
+					newModel.GetComponent<PlacingCollision> ().PB = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<PlaceBuilding> ();
+					newBuilding.GetComponent<House>().maxPeople = 30;
+					newBuilding.GetComponent<House>().HouseLevel = 3;
+
 				}
 				newBuilding.GetComponent<Building> ().BuildingNum = i;
 				newBuilding.GetComponent<House> ().CurrentPeople = (int)SaveFileControl.control.buildings [i, 4];
