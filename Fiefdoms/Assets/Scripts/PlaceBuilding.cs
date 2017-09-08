@@ -395,7 +395,13 @@ public class PlaceBuilding : MonoBehaviour {
 
 	private void ChangeBuilding(){
 		placingBuilding = Instantiate (BuildingPrefab, MousePosition.transform);
-		placingBuilding.GetComponentInChildren<PlacingCollision> ().PB=this;
+		if (BuildingPrefab != MillPrefab) {
+			placingBuilding.GetComponentInChildren<PlacingCollision> ().PB = this;
+		} else {
+			PlacingCollision[] MillPB = placingBuilding.GetComponentsInChildren<PlacingCollision>();
+			MillPB [0].PB = this;
+			MillPB [1].PB = this;
+		}
 		placingBuilding.transform.localPosition = new Vector3 (0, 0, 0);
 	}
 
