@@ -13,6 +13,7 @@ public class InfoPanel : MonoBehaviour {
 	public ElapsedTime eTime;
 	public Text InfoText;
 	public Discontent discontent;
+	public Prosperity prosp;
 
 
 	// Use this for initialization
@@ -59,6 +60,9 @@ public class InfoPanel : MonoBehaviour {
 	}
 	public void ShowDiscontent(){
 		InfoText.text="Discontent: "+(int)discontent.DiscontentAmmt;
+	}
+	public void ShowProsperity(){
+		InfoText.text="Prosperity: "+(int)prosp.ProsperityAmmt;
 	}
 
 
