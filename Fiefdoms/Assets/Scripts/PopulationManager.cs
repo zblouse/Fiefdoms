@@ -47,7 +47,7 @@ public class PopulationManager : MonoBehaviour {
 			Debug.Log ("Unemployed less than Decrease Ammount");
 			if (EmployedPeople >= DecreaseAmmount) {
 				Debug.Log ("More Employed than decrease ammount");
-				while (removed != DecreaseAmmount) {
+				while (removed < DecreaseAmmount) {
 					if (buildings [removeNum] != null) {
 						if (buildings [removeNum].tag == "Mill") {
 							Debug.Log ("Removed at Mill");
@@ -81,6 +81,7 @@ public class PopulationManager : MonoBehaviour {
 						}
 					}
 					removeNum++;
+
 				}
 
 			} else {

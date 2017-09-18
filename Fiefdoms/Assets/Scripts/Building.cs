@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour {
 	public int BuildingNum;
+	public bool placed = false;
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

@@ -26,6 +26,7 @@ public class House : MonoBehaviour {
 	public int HouseLevel;
 	public GameObject Level2Model;
 	public GameObject Level3Model;
+	private bool Upgrading = false;
 
 	private GameObject newModel;
 
@@ -47,7 +48,7 @@ public class House : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (RoadAccess) {
+		if (RoadAccess||Upgrading) {
 
 			if (Placed && ElapsedTime.NewMonth) {
 				if (PopManager.Unemployment < .05) {
@@ -99,20 +100,24 @@ public class House : MonoBehaviour {
 						Debug.Log ("Upgrading to Level 2");
 						Destroy (gameObject.transform.GetChild (0).gameObject);
 						newModel = Instantiate (Level2Model, gameObject.transform);
-						newModel.transform.localPosition = new Vector3 (0, .75f, 0);
+						newModel.transform.localPosition = new Vector3 (0, .5f, 0);
 						newModel.GetComponent<PlacingCollision> ().PB = GameObject.FindGameObjectWithTag ("Game Control").GetComponent<PlaceBuilding> ();
 						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 5] = 2;//House Level
 						maxPeople = 25;
 						HouseLevel = 2;
 						prosp.ProsperityAmmt += .25f;
+						Upgrading = true;
 					}
-				}
-				if (HouseLevel == 2) {
+				}else if (HouseLevel == 2) {
+					if (Upgrading) {
+						Upgrading = false;
+					}
 					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) {
+						Upgrading = true;
 						Debug.Log ("Upgrading to Level 3");
 						Destroy (gameObject.transform.GetChild (0).gameObject);
 						newModel = Instantiate (Level3Model,gameObject.transform);
-						newModel.transform.localPosition = new Vector3 (0,1f,0);
+						newModel.transform.localPosition = new Vector3 (0,.5f,0);
 						newModel.GetComponent<PlacingCollision>().PB=GameObject.FindGameObjectWithTag("Game Control").GetComponent<PlaceBuilding>();
 						SaveFileControl.control.buildings[gameObject.GetComponent<Building>().BuildingNum, 5] = 3;//House Level
 						maxPeople=30;
@@ -136,7 +141,10 @@ public class House : MonoBehaviour {
 						discontent.DiscontentAmmt += 2;
 					}
 
-				}if (HouseLevel == 3) {
+				}else if (HouseLevel == 3) {
+					if (Upgrading) {
+						Upgrading = false;
+					}
 					if (HouseLevel == 2 && MarketAccess && WellAccess && InnAccess && ChurchAccess) { //update needed
 						Debug.Log ("Upgrading to Level 3");
 						Destroy (gameObject.transform.GetChild (0).gameObject);

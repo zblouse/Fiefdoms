@@ -18,14 +18,19 @@ public class PlacingCollision : MonoBehaviour {
 	*/
 	void OnCollisionExit(Collision col){
 		if (col.collider.transform.tag != "Terrain" && !(col.collider.transform.parent.transform.tag=="Road" && gameObject.transform.parent.transform.tag=="Road")) {
-			PB.collision = false;
-			Debug.Log ("Exit Collision");
+			if (!col.collider.transform.parent.transform.GetComponent<Building> ().placed) {
+				PB.collision = false;
+				Debug.Log ("Exit Collision");
+			}
 		}
 	}
 
 	void OnCollisionStay(Collision col){
 		if (col.collider.transform.tag != "Terrain"&& !(col.collider.transform.parent.transform.tag=="Road" && gameObject.transform.parent.transform.tag=="Road")) {
-			PB.collision = true;
+			if (!col.collider.transform.parent.transform.GetComponent<Building> ().placed) {
+				PB.collision = true;
+				Debug.Log ("Collision with " + gameObject.transform.parent.tag);
+			}
 		}
 	}
 }

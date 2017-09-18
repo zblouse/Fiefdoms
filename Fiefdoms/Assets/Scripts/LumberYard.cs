@@ -26,8 +26,8 @@ public class LumberYard : MonoBehaviour {
 		if (placed) {
 			if (RoadAccess) {
 				if (!pause.GamePaused) {
-					if (eTime.NewMonth && resources.PlayerFood >= 25 && CurrentEmployees > 0) {
-						resources.PlayerWood = resources.PlayerWood + (int)(CurrentEmployees * .75);
+					if (eTime.NewMonth && CurrentEmployees > 0) {
+						resources.PlayerWood = resources.PlayerWood + (int)((float)CurrentEmployees * .75);
 
 					}
 					if (CurrentEmployees < MaxEmployees && placed) {

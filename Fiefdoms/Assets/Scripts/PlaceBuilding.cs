@@ -19,6 +19,7 @@ public class PlaceBuilding : MonoBehaviour {
 
 	private GameObject BuildingPrefab;
 
+	public GameObject InsufficentResourcesText;
 
 	public bool placing=false;
 
@@ -47,6 +48,7 @@ public class PlaceBuilding : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		InsufficentResourcesText.SetActive (false);
 		TradeDepoButton.SetActive (false);
 		if(SceneManager.GetActiveScene().name=="test"){
 			maxPlacement = 14.5f;
@@ -66,17 +68,20 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "House" && Resources.PlayerWood >= 50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						Debug.Log ("Placing building building num: "+SaveFileControl.control.BuildingCount);
+						Debug.Log ("Placing building building num: " + SaveFileControl.control.BuildingCount);
 						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 2] = placingBuilding.transform.position.z;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 1;
-						SaveFileControl.control.buildings[SaveFileControl.control.BuildingCount - 1, 5] = 1;//House Type
+						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 5] = 1;//House Type
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						placingBuilding.GetComponent<House> ().Placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "House" && Resources.PlayerWood < 50){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Mill" && Resources.PlayerWood >= 75 && Resources.PlayerStone >= 25) {
 						placingBuilding.transform.parent = null;
@@ -90,7 +95,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerWood = Resources.PlayerWood - 75;
 						Resources.PlayerStone = Resources.PlayerStone - 25;
 						placingBuilding.GetComponent<Mill> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Mill" && (Resources.PlayerWood < 75 || Resources.PlayerStone < 25)){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Field" && Resources.PlayerGold >= 10) {
 						if (FieldAriable) {
@@ -104,9 +112,12 @@ public class PlaceBuilding : MonoBehaviour {
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 3;
 							Resources.PlayerGold = Resources.PlayerGold - 10;
 							placingBuilding.GetComponent<Field> ().placed = true;
+							placingBuilding.GetComponent<Building> ().placed = true;
 							ChangeBuilding ();
 							FieldAriable = false;
 						}
+					} else if(placingBuilding.transform.tag == "Field" && Resources.PlayerGold < 10){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "LumberYard" && Resources.PlayerWood >= 100) {
 						placingBuilding.transform.parent = null;
@@ -119,9 +130,12 @@ public class PlaceBuilding : MonoBehaviour {
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 5;
 						Resources.PlayerWood = Resources.PlayerWood - 100;
 						placingBuilding.GetComponent<LumberYard> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "LumberYard" && Resources.PlayerWood < 100){
+						InsufficentResourcesText.SetActive (true);
 					}
-					if (placingBuilding.transform.tag == "Quarry" && Resources.PlayerStone >= 75 && Resources.PlayerWood>25) {
+					if (placingBuilding.transform.tag == "Quarry" && Resources.PlayerStone >= 75 && Resources.PlayerWood>=25) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
 						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
@@ -133,7 +147,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerWood = Resources.PlayerWood - 25;
 						Resources.PlayerStone = Resources.PlayerStone - 75;
 						placingBuilding.GetComponent<Quarry> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Quarry" && (Resources.PlayerStone < 75 || Resources.PlayerWood<25)){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Market" && Resources.PlayerWood >= 75 && Resources.PlayerStone >= 25) {
 						placingBuilding.transform.parent = null;
@@ -148,7 +165,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerWood = Resources.PlayerWood - 75;
 						Resources.PlayerStone = Resources.PlayerStone - 25;
 						placingBuilding.GetComponent<Market> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Market" && (Resources.PlayerWood < 75 || Resources.PlayerStone < 25)){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "TradeDepo" && Resources.PlayerWood >= 50 && Resources.PlayerStone>= 50 && MarketCount>=2) {
 						placingBuilding.transform.parent = null;
@@ -162,7 +182,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						Resources.PlayerStone = Resources.PlayerStone - 50;
 						placingBuilding.GetComponent<TradeDepo> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "TradeDepo" && (Resources.PlayerWood < 50 || Resources.PlayerStone < 50)){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Well"  && Resources.PlayerStone >= 50) {
 						placingBuilding.transform.parent = null;
@@ -175,7 +198,10 @@ public class PlaceBuilding : MonoBehaviour {
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 9;
 						Resources.PlayerStone = Resources.PlayerStone - 50;
 						placingBuilding.GetComponent<Well> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Well" && Resources.PlayerStone < 50){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Inn"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
 						placingBuilding.transform.parent = null;
@@ -189,7 +215,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerStone = Resources.PlayerStone - 50;
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						placingBuilding.GetComponent<Inn> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Inn" && (Resources.PlayerStone < 50 || Resources.PlayerWood < 50)){
+						InsufficentResourcesText.SetActive (true);
 					}
 					if (placingBuilding.transform.tag == "Church"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
 						placingBuilding.transform.parent = null;
@@ -203,7 +232,10 @@ public class PlaceBuilding : MonoBehaviour {
 						Resources.PlayerStone = Resources.PlayerStone - 50;
 						Resources.PlayerWood = Resources.PlayerWood - 50;
 						placingBuilding.GetComponent<Church> ().placed = true;
+						placingBuilding.GetComponent<Building> ().placed = true;
 						ChangeBuilding ();
+					} else if(placingBuilding.transform.tag == "Church" && (Resources.PlayerStone < 50 || Resources.PlayerWood < 50)){
+						InsufficentResourcesText.SetActive (true);
 					}
 				} else if (Input.GetMouseButtonDown (0)) {
 					Debug.Log ("There is a collision");
@@ -214,6 +246,7 @@ public class PlaceBuilding : MonoBehaviour {
 					placingRoad = false;
 					collision = false;
 					FieldAriable = false;
+					InsufficentResourcesText.SetActive (false);
 				}
 			} else {//We are placing a road
 				if (Input.GetMouseButtonDown (0) && !collision) {
@@ -222,7 +255,7 @@ public class PlaceBuilding : MonoBehaviour {
 						roadBegin = placingBuilding.transform.position;
 						placingBuilding.transform.parent = null;
 					} else {//ending point of the road
-						if(Resources.PlayerStone>=(int)(5 * roadLength)){
+						if (Resources.PlayerStone >= (int)(5 * roadLength)) {
 							placingBuilding.transform.parent = null;
 							placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
 							PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
@@ -233,11 +266,14 @@ public class PlaceBuilding : MonoBehaviour {
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 3] = 4;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 4] = roadLength;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 5] = placingBuilding.transform.rotation.eulerAngles.y;
-							Debug.Log ("YRotation: "+placingBuilding.transform.rotation.eulerAngles.y);
+							Debug.Log ("YRotation: " + placingBuilding.transform.rotation.eulerAngles.y);
 							roadBeginPlaced = false;
 							Resources.PlayerStone = (int)(Resources.PlayerStone - 5 * roadLength);
 							placingBuilding.GetComponent<Road> ().placed = true;
+							placingBuilding.GetComponent<Building> ().placed = true;
 							ChangeBuilding ();
+						} else if (Resources.PlayerStone < (int)(5 * roadLength)) {
+							InsufficentResourcesText.SetActive (true);
 						}
 					}
 				} else if (roadBeginPlaced) {//dynamically size road while moving mouse
@@ -273,6 +309,7 @@ public class PlaceBuilding : MonoBehaviour {
 
 	public void SelectHouse(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -284,6 +321,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectMill(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -295,6 +333,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectField(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -305,6 +344,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectRoad(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -316,6 +356,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectLumberYard(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -328,6 +369,7 @@ public class PlaceBuilding : MonoBehaviour {
 
 	public void SelectQuarry(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -339,6 +381,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectMarket(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -350,6 +393,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectTradeDepo(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -361,6 +405,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectWell(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -372,6 +417,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectInn(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -383,6 +429,7 @@ public class PlaceBuilding : MonoBehaviour {
 	}
 	public void SelectChurch(){
 		removeBuilding.EndRemoving ();
+		InsufficentResourcesText.SetActive (false);
 		if (placing) {
 			DestroyImmediate (placingBuilding);
 		}
@@ -395,18 +442,13 @@ public class PlaceBuilding : MonoBehaviour {
 
 	private void ChangeBuilding(){
 		placingBuilding = Instantiate (BuildingPrefab, MousePosition.transform);
-		if (BuildingPrefab != MillPrefab) {
-			placingBuilding.GetComponentInChildren<PlacingCollision> ().PB = this;
-		} else {
-			PlacingCollision[] MillPB = placingBuilding.GetComponentsInChildren<PlacingCollision>();
-			MillPB [0].PB = this;
-			MillPB [1].PB = this;
-		}
+		placingBuilding.GetComponentInChildren<PlacingCollision> ().PB = this;
 		placingBuilding.transform.localPosition = new Vector3 (0, 0, 0);
 	}
 
 	public void EndPlacement(){
 		DestroyImmediate (placingBuilding);
+		InsufficentResourcesText.SetActive (false);
 		placing = false;
 		placingRoad = false;
 		roadBeginPlaced = false;

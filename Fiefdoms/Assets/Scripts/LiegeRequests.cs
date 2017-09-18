@@ -7,6 +7,7 @@ public class LiegeRequests : MonoBehaviour {
 	public ElapsedTime eTime;
 	public PlayerResources resources;
 	public PauseGame pause;
+	public PlaceBuilding PB;
 	public GameObject RequestPanel;
 	public GameObject FulfilledPanel;
 	public GameObject DeniedPanel;
@@ -34,6 +35,7 @@ public class LiegeRequests : MonoBehaviour {
 		if (eTime.currentMonth == 5 && newMonthNextDay) {//Generate the request, tell the player
 			newMonthNextDay=false;
 			RequestPanel.SetActive (true);
+
 			pause.Pause ();
 			Debug.Log (pause.GamePaused);
 			requestFulfilled=false;
@@ -69,7 +71,7 @@ public class LiegeRequests : MonoBehaviour {
 					SendNowButton.enabled = false;
 				}
 			}
-
+			PB.EndPlacement ();
 		}
 		if (eTime.currentMonth == 12 && newMonthNextDay && !requestFulfilled) {
 			newMonthNextDay = false;
@@ -84,8 +86,10 @@ public class LiegeRequests : MonoBehaviour {
 				FulfilledPanel.SetActive (true);
 				pause.Pause();
 				FulfilledText.text="Thank you for your shipment.";
+				PB.EndPlacement ();
 			} else {
 				RequestPanel.SetActive (true);
+
 				pause.Pause();
 				if (requestedResource == 1) {//gold
 					RequestText.text = "It is time for your harvest payment of 50 Gold";
@@ -116,6 +120,7 @@ public class LiegeRequests : MonoBehaviour {
 						SendNowButton.enabled = false;
 					}
 				}
+				PB.EndPlacement ();
 			}
 		}
 		if (eTime.NewMonth) {
