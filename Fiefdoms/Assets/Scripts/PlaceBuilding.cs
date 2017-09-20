@@ -69,7 +69,7 @@ public class PlaceBuilding : MonoBehaviour {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
 						Debug.Log ("Placing building building num: " + SaveFileControl.control.BuildingCount);
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -86,7 +86,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "Mill" && Resources.PlayerWood >= 75 && Resources.PlayerStone >= 25) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -104,7 +104,7 @@ public class PlaceBuilding : MonoBehaviour {
 						if (FieldAriable) {
 							placingBuilding.transform.parent = null;
 							placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-							PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+							PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 							SaveFileControl.control.BuildingCount++;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -122,7 +122,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "LumberYard" && Resources.PlayerWood >= 100) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -138,7 +138,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "Quarry" && Resources.PlayerStone >= 75 && Resources.PlayerWood>=25) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -156,7 +156,7 @@ public class PlaceBuilding : MonoBehaviour {
 						placingBuilding.transform.parent = null;
 						MarketCount++;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -173,7 +173,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "TradeDepo" && Resources.PlayerWood >= 50 && Resources.PlayerStone>= 50 && MarketCount>=2) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -190,7 +190,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "Well"  && Resources.PlayerStone >= 50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -206,7 +206,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "Inn"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -223,7 +223,7 @@ public class PlaceBuilding : MonoBehaviour {
 					if (placingBuilding.transform.tag == "Church"  && Resources.PlayerStone >= 50 && Resources.PlayerWood>=50) {
 						placingBuilding.transform.parent = null;
 						placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-						PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+						PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 						SaveFileControl.control.BuildingCount++;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 						SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;
@@ -258,7 +258,7 @@ public class PlaceBuilding : MonoBehaviour {
 						if (Resources.PlayerStone >= (int)(5 * roadLength)) {
 							placingBuilding.transform.parent = null;
 							placingBuilding.GetComponent<Building> ().BuildingNum = SaveFileControl.control.BuildingCount;
-							PopMan.buildings [placingBuilding.GetComponent<Building> ().BuildingNum] = placingBuilding;
+							PopMan.buildings [SaveFileControl.control.BuildingCount] = placingBuilding;
 							SaveFileControl.control.BuildingCount++;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 0] = placingBuilding.transform.position.x;
 							SaveFileControl.control.buildings [SaveFileControl.control.BuildingCount - 1, 1] = placingBuilding.transform.position.y;

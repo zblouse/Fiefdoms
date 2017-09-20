@@ -33,21 +33,27 @@ public class Market : MonoBehaviour {
 		if (destroying) {
 			gameObject.GetComponent<BoxCollider> ().center = new Vector3 (0, 100, 0);
 			finished = true;
-		}
-		if (placed) {
+		}else if (placed) {
 			if (RoadAccess) {
+				
 				if (!pause.GamePaused) {
 					if (CurrentEmployees < MaxEmployees && placed) {
-						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						newWorkers = PopManager.RequestWorkers (1);
 						PopManager.EmployedPeople += newWorkers;
 						CurrentEmployees += newWorkers;
 						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
 					}
 				}
+				if (CurrentEmployees == 0) {
+					gameObject.GetComponent<BoxCollider> ().center = new Vector3 (0, 100, 0);
+				} else {
+					gameObject.GetComponent<BoxCollider> ().center = new Vector3 (0, 0, 0);
+				}
 			} else {
 				PopManager.EmployedPeople -= CurrentEmployees;
 				CurrentEmployees = 0;
 				SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;
+				gameObject.GetComponent<BoxCollider> ().center = new Vector3 (0, 100, 0);
 			}
 		}
 	}

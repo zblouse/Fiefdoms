@@ -34,7 +34,7 @@ public class Mill : MonoBehaviour {
 
 					}
 					if (CurrentEmployees < MaxEmployees && placed && eTime.NewMonth) {
-						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						newWorkers = PopManager.RequestWorkers (1);
 						PopManager.EmployedPeople += newWorkers;
 						CurrentEmployees += newWorkers;
 						Debug.Log ("" + gameObject.GetComponent<Building> ().BuildingNum);

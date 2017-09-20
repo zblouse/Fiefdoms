@@ -8,6 +8,7 @@ public class LiegeRequests : MonoBehaviour {
 	public PlayerResources resources;
 	public PauseGame pause;
 	public PlaceBuilding PB;
+	public RemoveBuilding RB;
 	public GameObject RequestPanel;
 	public GameObject FulfilledPanel;
 	public GameObject DeniedPanel;
@@ -72,6 +73,7 @@ public class LiegeRequests : MonoBehaviour {
 				}
 			}
 			PB.EndPlacement ();
+			RB.Removing = false;
 		}
 		if (eTime.currentMonth == 12 && newMonthNextDay && !requestFulfilled) {
 			newMonthNextDay = false;
@@ -87,6 +89,7 @@ public class LiegeRequests : MonoBehaviour {
 				pause.Pause();
 				FulfilledText.text="Thank you for your shipment.";
 				PB.EndPlacement ();
+				RB.Removing = false;
 			} else {
 				RequestPanel.SetActive (true);
 
@@ -121,6 +124,7 @@ public class LiegeRequests : MonoBehaviour {
 					}
 				}
 				PB.EndPlacement ();
+				RB.Removing = false;
 			}
 		}
 		if (eTime.NewMonth) {

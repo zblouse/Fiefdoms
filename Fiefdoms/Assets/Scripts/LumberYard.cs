@@ -31,7 +31,7 @@ public class LumberYard : MonoBehaviour {
 
 					}
 					if (CurrentEmployees < MaxEmployees && placed) {
-						newWorkers = PopManager.RequestWorkers (MaxEmployees - CurrentEmployees);
+						newWorkers = PopManager.RequestWorkers (1);
 						PopManager.EmployedPeople += newWorkers;
 						CurrentEmployees += newWorkers;
 						SaveFileControl.control.buildings [gameObject.GetComponent<Building> ().BuildingNum, 4] = CurrentEmployees;

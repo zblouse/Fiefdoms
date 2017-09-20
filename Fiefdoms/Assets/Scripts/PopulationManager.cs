@@ -47,6 +47,7 @@ public class PopulationManager : MonoBehaviour {
 			Debug.Log ("Unemployed less than Decrease Ammount");
 			if (EmployedPeople >= DecreaseAmmount) {
 				Debug.Log ("More Employed than decrease ammount");
+				removeNum = 0;
 				while (removed < DecreaseAmmount) {
 					if (buildings [removeNum] != null) {
 						if (buildings [removeNum].tag == "Mill") {
@@ -78,6 +79,30 @@ public class PopulationManager : MonoBehaviour {
 							removed += buildings [removeNum].GetComponent<Quarry> ().CurrentEmployees;
 							buildings [removeNum].GetComponent<Quarry> ().CurrentEmployees = 0;
 							Debug.Log ("Current Employees: " + buildings [removeNum].GetComponent<Quarry> ().CurrentEmployees);
+						}
+						if (buildings [removeNum].tag == "Inn") {
+							Debug.Log ("Removed at Inn");
+							removed += buildings [removeNum].GetComponent<Inn> ().CurrentEmployees;
+							buildings [removeNum].GetComponent<Inn> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [removeNum].GetComponent<Inn> ().CurrentEmployees);
+						}
+						if (buildings [removeNum].tag == "Church") {
+							Debug.Log ("Removed at Church");
+							removed += buildings [removeNum].GetComponent<Church> ().CurrentEmployees;
+							buildings [removeNum].GetComponent<Church> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [removeNum].GetComponent<Church> ().CurrentEmployees);
+						}
+						if (buildings [removeNum].tag == "TradeDepo") {
+							Debug.Log ("Removed at Trade Depo");
+							removed += buildings [removeNum].GetComponent<TradeDepo> ().CurrentEmployees;
+							buildings [removeNum].GetComponent<TradeDepo> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [removeNum].GetComponent<TradeDepo> ().CurrentEmployees);
+						}
+						if (buildings [removeNum].tag == "Well") {
+							Debug.Log ("Removed at Well");
+							removed += buildings [removeNum].GetComponent<Well> ().CurrentEmployees;
+							buildings [removeNum].GetComponent<Well> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [removeNum].GetComponent<Well> ().CurrentEmployees);
 						}
 					}
 					removeNum++;
@@ -118,6 +143,30 @@ public class PopulationManager : MonoBehaviour {
 							removed += buildings [i].GetComponent<Market> ().CurrentEmployees;
 							buildings [i].GetComponent<Market> ().CurrentEmployees = 0;
 							Debug.Log ("Current Employees: " + buildings [i].GetComponent<Market> ().CurrentEmployees);
+						}
+						if (buildings [i].tag == "Inn") {
+							Debug.Log ("Removed at Inn");
+							removed += buildings [i].GetComponent<Inn> ().CurrentEmployees;
+							buildings [i].GetComponent<Inn> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [i].GetComponent<Inn> ().CurrentEmployees);
+						}
+						if (buildings [i].tag == "Church") {
+							Debug.Log ("Removed at Church");
+							removed += buildings [i].GetComponent<Church> ().CurrentEmployees;
+							buildings [i].GetComponent<Church> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [i].GetComponent<Church> ().CurrentEmployees);
+						}
+						if (buildings [i].tag == "TradeDepo") {
+							Debug.Log ("Removed at Trade Depo");
+							removed += buildings [i].GetComponent<TradeDepo> ().CurrentEmployees;
+							buildings [i].GetComponent<TradeDepo> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [i].GetComponent<TradeDepo> ().CurrentEmployees);
+						}
+						if (buildings [i].tag == "Well") {
+							Debug.Log ("Removed at Well");
+							removed += buildings [i].GetComponent<Well> ().CurrentEmployees;
+							buildings [i].GetComponent<Well> ().CurrentEmployees = 0;
+							Debug.Log ("Current Employees: " + buildings [i].GetComponent<Well> ().CurrentEmployees);
 						}
 					} else {
 						Debug.Log ("Building is null");

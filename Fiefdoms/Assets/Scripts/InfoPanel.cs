@@ -14,7 +14,7 @@ public class InfoPanel : MonoBehaviour {
 	public Text InfoText;
 	public Discontent discontent;
 	public Prosperity prosp;
-
+	public 
 
 	// Use this for initialization
 	void Start () {
